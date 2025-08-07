@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Test</title>
+</head>
+<body>
+    <h1>Simple Test to Check Server</h1>
+    <div id="test-results"></div>
+    
+    <script>
+        // Test if we can fetch the main page
+        fetch('http://localhost:3000/')
+            .then(response => response.text())
+            .then(html => {
+                const results = document.getElementById('test-results');
+                if (html.includes('<div id="root"></div>')) {
+                    results.innerHTML += '<p style="color: green;">✓ HTML structure is correct</p>';
+                } else {
+                    results.innerHTML += '<p style="color: red;">✗ HTML structure issue</p>';
+                }
+                
+                if (html.includes('src="/src/main.tsx')) {
+                    results.innerHTML += '<p style="color: green;">✓ Main script reference found</p>';
+                } else {
+                    results.innerHTML += '<p style="color: red;">✗ Main script reference missing</p>';
+                }
+                
+                if (html.includes('React')) {
+                    results.innerHTML += '<p style="color: green;">✓ React references found</p>';
+                } else {
+                    results.innerHTML += '<p style="color: orange;">? React references not in HTML (normal for dev mode)</p>';
+                }
+            })
+            .catch(error => {
+                document.getElementById('test-results').innerHTML = 
+                    '<p style="color: red;">✗ Failed to fetch: ' + error.message + '</p>';
+            });
+    </script>
+</body>
+</html>
