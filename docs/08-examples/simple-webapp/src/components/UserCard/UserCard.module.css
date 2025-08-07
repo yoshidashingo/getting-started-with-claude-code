@@ -1,0 +1,461 @@
+/* UserCard コンポーネントのスタイル */
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.card:hover:not(.disabled):not(.editing) {
+  border-color: #cbd5e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+.card.editing {
+  border-color: #3182ce;
+  box-shadow: 0 4px 16px rgba(49, 130, 206, 0.1);
+}
+
+.card.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* コンテンツ */
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.userInfo {
+  flex: 1;
+  min-width: 0; /* flexアイテムの縮小を許可 */
+}
+
+/* 表示モード */
+.displayInfo {
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.displayInfo:hover {
+  background: #f7fafc;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 4px;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.email {
+  font-size: 14px;
+  color: #4a5568;
+  margin-bottom: 8px;
+  word-break: break-all;
+}
+
+.metadata {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #718096;
+}
+
+.createdAt,
+.updatedAt {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.createdAt::before {
+  content: '📅';
+  font-size: 10px;
+}
+
+.updatedAt::before {
+  content: '🔄';
+  font-size: 10px;
+}
+
+/* ハイライト */
+.highlight {
+  background: #fed7d7;
+  color: #c53030;
+  padding: 1px 2px;
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+/* 編集モード */
+.editForm {
+  width: 100%;
+}
+
+.editField {
+  margin-bottom: 16px;
+}
+
+.editField:last-child {
+  margin-bottom: 0;
+}
+
+.editLabel {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 4px;
+}
+
+.editInput {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  background: #ffffff;
+  transition: border-color 0.2s ease;
+  outline: none;
+}
+
+.editInput:focus {
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.editInput:disabled {
+  background: #f7fafc;
+  color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.editErrors {
+  margin-top: 8px;
+}
+
+.editError {
+  font-size: 12px;
+  color: #e53e3e;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.editError::before {
+  content: '⚠';
+  font-size: 10px;
+}
+
+/* アクション */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.editButton,
+.deleteButton,
+.saveButton,
+.cancelButton {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 80px;
+  white-space: nowrap;
+}
+
+.editButton {
+  background: #edf2f7;
+  color: #4a5568;
+  border: 1px solid #e2e8f0;
+}
+
+.editButton:hover:not(:disabled) {
+  background: #e2e8f0;
+  border-color: #cbd5e0;
+}
+
+.deleteButton {
+  background: #fed7d7;
+  color: #c53030;
+  border: 1px solid #feb2b2;
+}
+
+.deleteButton:hover:not(:disabled) {
+  background: #fbb6ce;
+  border-color: #f687b3;
+}
+
+.saveButton {
+  background: #3182ce;
+  color: #ffffff;
+}
+
+.saveButton:hover:not(:disabled) {
+  background: #2c5aa0;
+}
+
+.cancelButton {
+  background: #f7fafc;
+  color: #4a5568;
+  border: 1px solid #e2e8f0;
+}
+
+.cancelButton:hover:not(:disabled) {
+  background: #edf2f7;
+}
+
+.editButton:disabled,
+.deleteButton:disabled,
+.saveButton:disabled,
+.cancelButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.editButton:focus,
+.deleteButton:focus,
+.saveButton:focus,
+.cancelButton:focus {
+  outline: 2px solid #3182ce;
+  outline-offset: 2px;
+}
+
+.buttonIcon {
+  font-size: 12px;
+}
+
+/* 編集ヒント */
+.editHint {
+  position: absolute;
+  bottom: -24px;
+  left: 20px;
+  font-size: 11px;
+  color: #718096;
+  background: #ffffff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.editHint kbd {
+  background: #edf2f7;
+  border: 1px solid #cbd5e0;
+  border-radius: 2px;
+  padding: 1px 4px;
+  font-size: 10px;
+  font-family: monospace;
+  color: #4a5568;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .card {
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .content {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .actions {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .name {
+    font-size: 16px;
+  }
+
+  .email {
+    font-size: 13px;
+  }
+
+  .metadata {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .editButton,
+  .deleteButton,
+  .saveButton,
+  .cancelButton {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .editButton,
+  .deleteButton,
+  .saveButton,
+  .cancelButton {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .editHint {
+    position: static;
+    margin-top: 8px;
+    text-align: center;
+  }
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+  .card {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+
+  .card:hover:not(.disabled):not(.editing) {
+    border-color: #718096;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .card.editing {
+    border-color: #63b3ed;
+    box-shadow: 0 4px 16px rgba(99, 179, 237, 0.2);
+  }
+
+  .displayInfo:hover {
+    background: #4a5568;
+  }
+
+  .name {
+    color: #f7fafc;
+  }
+
+  .email {
+    color: #e2e8f0;
+  }
+
+  .metadata {
+    color: #a0aec0;
+  }
+
+  .highlight {
+    background: #c53030;
+    color: #fed7d7;
+  }
+
+  .editLabel {
+    color: #e2e8f0;
+  }
+
+  .editInput {
+    background: #4a5568;
+    border-color: #718096;
+    color: #f7fafc;
+  }
+
+  .editInput:focus {
+    border-color: #63b3ed;
+    box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.1);
+  }
+
+  .editInput:disabled {
+    background: #2d3748;
+    color: #718096;
+  }
+
+  .editButton {
+    background: #4a5568;
+    color: #e2e8f0;
+    border-color: #718096;
+  }
+
+  .editButton:hover:not(:disabled) {
+    background: #718096;
+  }
+
+  .cancelButton {
+    background: #4a5568;
+    color: #e2e8f0;
+    border-color: #718096;
+  }
+
+  .cancelButton:hover:not(:disabled) {
+    background: #718096;
+  }
+
+  .editHint {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #a0aec0;
+  }
+
+  .editHint kbd {
+    background: #4a5568;
+    border-color: #718096;
+    color: #e2e8f0;
+  }
+}
+
+/* アニメーション */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* アクセシビリティ */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card:hover,
+  .displayInfo,
+  .editInput,
+  .editButton,
+  .deleteButton,
+  .saveButton,
+  .cancelButton {
+    transition: none;
+    animation: none;
+    transform: none;
+  }
+}

@@ -1,0 +1,438 @@
+/* UserList コンポーネントのスタイル */
+
+.container {
+  width: 100%;
+}
+
+/* ローディング状態 */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #3182ce;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingText {
+  font-size: 16px;
+  color: #718096;
+  margin: 0;
+}
+
+/* エラー状態 */
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+  background: #fed7d7;
+  border: 1px solid #feb2b2;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.errorIcon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.errorContent {
+  flex: 1;
+}
+
+.errorTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #c53030;
+  margin: 0 0 8px 0;
+}
+
+.errorMessage {
+  font-size: 14px;
+  color: #9b2c2c;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+.retryButton {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  background: #c53030;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.retryButton:hover {
+  background: #9b2c2c;
+}
+
+.retryButton:focus {
+  outline: 2px solid #c53030;
+  outline-offset: 2px;
+}
+
+/* 空状態 */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  background: #f7fafc;
+  border: 2px dashed #cbd5e0;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+
+.emptyTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0 0 12px 0;
+}
+
+.emptyDescription {
+  font-size: 14px;
+  color: #718096;
+  margin: 0 0 24px 0;
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+.addButton {
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  background: #3182ce;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.addButton:hover {
+  background: #2c5aa0;
+}
+
+.addButton:focus {
+  outline: 2px solid #3182ce;
+  outline-offset: 2px;
+}
+
+/* リストヘッダー */
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+
+.listTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+}
+
+.searchQuery {
+  color: #3182ce;
+  background: #ebf8ff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.listStats {
+  font-size: 14px;
+  color: #718096;
+  font-weight: 500;
+}
+
+/* ユーザーリスト */
+.userList {
+  position: relative;
+}
+
+.userList.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.userItem {
+  animation: slideInUp 0.3s ease-out both;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* リストフッター */
+.listFooter {
+  margin-top: 24px;
+  padding: 16px 4px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.footerStats {
+  font-size: 13px;
+  color: #718096;
+  text-align: center;
+}
+
+.totalCount {
+  color: #a0aec0;
+  margin-left: 4px;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .listHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .listTitle {
+    font-size: 18px;
+  }
+
+  .listStats {
+    font-size: 13px;
+  }
+
+  .emptyState {
+    padding: 32px 20px;
+  }
+
+  .emptyIcon {
+    font-size: 40px;
+  }
+
+  .emptyTitle {
+    font-size: 18px;
+  }
+
+  .emptyDescription {
+    font-size: 13px;
+  }
+
+  .loading {
+    padding: 32px 20px;
+  }
+
+  .error {
+    padding: 20px;
+    gap: 12px;
+  }
+
+  .errorIcon {
+    font-size: 20px;
+  }
+
+  .errorTitle {
+    font-size: 16px;
+  }
+
+  .errorMessage {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .listHeader {
+    margin-bottom: 12px;
+  }
+
+  .listTitle {
+    font-size: 16px;
+  }
+
+  .searchQuery {
+    display: block;
+    margin-top: 4px;
+  }
+
+  .emptyState {
+    padding: 24px 16px;
+    border-radius: 8px;
+  }
+
+  .emptyIcon {
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
+
+  .emptyTitle {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .emptyDescription {
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+
+  .addButton {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  .listFooter {
+    margin-top: 20px;
+    padding: 12px 4px;
+  }
+
+  .footerStats {
+    font-size: 12px;
+  }
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+  .loadingText {
+    color: #a0aec0;
+  }
+
+  .spinner {
+    border-color: #4a5568;
+    border-top-color: #63b3ed;
+  }
+
+  .emptyState {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+
+  .emptyTitle {
+    color: #f7fafc;
+  }
+
+  .emptyDescription {
+    color: #a0aec0;
+  }
+
+  .listTitle {
+    color: #f7fafc;
+  }
+
+  .searchQuery {
+    color: #63b3ed;
+    background: #2a4365;
+  }
+
+  .listStats {
+    color: #a0aec0;
+  }
+
+  .listFooter {
+    border-color: #4a5568;
+  }
+
+  .footerStats {
+    color: #a0aec0;
+  }
+
+  .totalCount {
+    color: #718096;
+  }
+}
+
+/* アクセシビリティ */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+
+  .userItem {
+    animation: none;
+  }
+
+  .retryButton,
+  .addButton {
+    transition: none;
+  }
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+  .emptyState {
+    border-width: 3px;
+    border-color: #000000;
+  }
+
+  .listTitle {
+    color: #000000;
+  }
+
+  .searchQuery {
+    background: #ffff00;
+    color: #000000;
+  }
+
+  .error {
+    border-width: 2px;
+    border-color: #cc0000;
+  }
+
+  .errorTitle {
+    color: #cc0000;
+  }
+}
+
+/* プリント対応 */
+@media print {
+  .loading,
+  .error,
+  .emptyState {
+    display: none;
+  }
+
+  .listHeader,
+  .listFooter {
+    border: none;
+    background: none;
+  }
+
+  .userItem {
+    break-inside: avoid;
+    animation: none;
+  }
+}

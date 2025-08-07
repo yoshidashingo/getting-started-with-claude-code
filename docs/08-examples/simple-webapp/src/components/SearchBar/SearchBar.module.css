@@ -1,0 +1,322 @@
+/* SearchBar コンポーネントのスタイル */
+
+.searchBar {
+  margin-bottom: 24px;
+}
+
+.searchBar.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* 検索コンテナ */
+.searchContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+/* 入力コンテナ */
+.inputContainer {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.inputContainer:hover:not(.error) {
+  border-color: #cbd5e0;
+}
+
+.inputContainer.focused:not(.error) {
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.inputContainer.error {
+  border-color: #e53e3e;
+}
+
+.inputContainer.error.focused {
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+}
+
+/* 検索アイコン */
+.searchIcon {
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #718096;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.searchIcon:hover:not(:disabled) {
+  color: #4a5568;
+}
+
+.searchIcon:disabled {
+  cursor: default;
+}
+
+/* 入力フィールド */
+.input {
+  flex: 1;
+  padding: 12px 0;
+  font-size: 16px;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: #1a202c;
+  min-width: 0;
+}
+
+.input::placeholder {
+  color: #a0aec0;
+}
+
+.input:disabled {
+  color: #a0aec0;
+  cursor: not-allowed;
+}
+
+/* クリアボタン */
+.clearButton {
+  padding: 8px 12px;
+  margin-right: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #718096;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.clearButton:hover:not(:disabled) {
+  background: #edf2f7;
+  color: #4a5568;
+}
+
+.clearButton:disabled {
+  cursor: not-allowed;
+}
+
+/* 検索結果統計 */
+.resultStats {
+  font-size: 14px;
+  color: #718096;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 12px 16px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+/* エラーメッセージ */
+.errorMessage {
+  font-size: 13px;
+  color: #e53e3e;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  background: #fed7d7;
+  border: 1px solid #feb2b2;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.errorMessage::before {
+  content: '⚠';
+  font-size: 12px;
+}
+
+/* 検索ヒント */
+.searchHints {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  color: #718096;
+  padding: 8px 12px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.hint {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.shortcuts {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.shortcut {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.shortcut kbd {
+  background: #edf2f7;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-family: monospace;
+  color: #4a5568;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .searchContainer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .resultStats {
+    text-align: center;
+    padding: 10px 12px;
+  }
+
+  .searchHints {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .shortcuts {
+    justify-content: center;
+  }
+
+  .input {
+    font-size: 16px; /* iOS のズーム防止 */
+  }
+}
+
+@media (max-width: 480px) {
+  .searchBar {
+    margin-bottom: 20px;
+  }
+
+  .inputContainer {
+    border-radius: 8px;
+  }
+
+  .searchIcon {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .input {
+    padding: 10px 0;
+    font-size: 16px;
+  }
+
+  .clearButton {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .hint {
+    font-size: 11px;
+  }
+
+  .shortcuts {
+    gap: 8px;
+  }
+
+  .shortcut {
+    font-size: 11px;
+  }
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+  .inputContainer {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+
+  .inputContainer:hover:not(.error) {
+    border-color: #718096;
+  }
+
+  .inputContainer.focused:not(.error) {
+    border-color: #63b3ed;
+    box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.1);
+  }
+
+  .searchIcon {
+    color: #a0aec0;
+  }
+
+  .searchIcon:hover:not(:disabled) {
+    color: #e2e8f0;
+  }
+
+  .input {
+    color: #f7fafc;
+  }
+
+  .input::placeholder {
+    color: #718096;
+  }
+
+  .input:disabled {
+    color: #718096;
+  }
+
+  .clearButton {
+    color: #a0aec0;
+  }
+
+  .clearButton:hover:not(:disabled) {
+    background: #4a5568;
+    color: #e2e8f0;
+  }
+
+  .resultStats {
+    background: #4a5568;
+    border-color: #718096;
+    color: #e2e8f0;
+  }
+
+  .searchHints {
+    background: #4a5568;
+    border-color: #718096;
+    color: #a0aec0;
+  }
+
+  .shortcut kbd {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+  }
+}

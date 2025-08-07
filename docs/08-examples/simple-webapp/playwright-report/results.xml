@@ -1,0 +1,10 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="1.153317">
+<testsuite name="basic.spec.ts" timestamp="2025-08-07T06:51:33.730Z" hostname="chromium" tests="1" failures="0" skipped="0" time="0.449" errors="0">
+<testcase name="Basic User Management App Test › should load the app successfully" classname="basic.spec.ts" time="0.449">
+<system-out>
+<![CDATA[✅ アプリケーションが正常に読み込まれました
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

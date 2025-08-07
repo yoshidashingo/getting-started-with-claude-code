@@ -1,0 +1,399 @@
+/* ErrorBoundary コンポーネントのスタイル */
+
+.errorBoundary {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+}
+
+.errorContainer {
+  max-width: 600px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 3rem;
+  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: 1px solid #e2e8f0;
+}
+
+.errorIcon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.errorContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.errorTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.errorMessage {
+  font-size: 1.125rem;
+  color: #4a5568;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.errorActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.primaryButton {
+  background: #3182ce;
+  color: #ffffff;
+}
+
+.primaryButton:hover {
+  background: #2c5aa0;
+  transform: translateY(-1px);
+}
+
+.primaryButton:focus {
+  outline: 2px solid #3182ce;
+  outline-offset: 2px;
+}
+
+.secondaryButton {
+  background: #f7fafc;
+  color: #4a5568;
+  border: 1px solid #e2e8f0;
+}
+
+.secondaryButton:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+  transform: translateY(-1px);
+}
+
+.secondaryButton:focus {
+  outline: 2px solid #3182ce;
+  outline-offset: 2px;
+}
+
+/* エラー詳細（開発環境用） */
+.errorDetails {
+  margin-top: 2rem;
+  text-align: left;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 2rem;
+}
+
+.detailsToggle {
+  background: #fed7d7;
+  color: #c53030;
+  border: 1px solid #feb2b2;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.detailsToggle:hover {
+  background: #fbb6ce;
+}
+
+.detailsToggle:focus {
+  outline: 2px solid #c53030;
+  outline-offset: 2px;
+}
+
+.detailsContent {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.errorInfo {
+  margin-bottom: 1.5rem;
+}
+
+.errorInfo:last-child {
+  margin-bottom: 0;
+}
+
+.errorInfo h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0 0 0.5rem 0;
+}
+
+.errorText {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 1rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: #2d3748;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .errorBoundary {
+    padding: 1rem;
+  }
+
+  .errorContainer {
+    padding: 2rem;
+  }
+
+  .errorIcon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .errorTitle {
+    font-size: 1.5rem;
+  }
+
+  .errorMessage {
+    font-size: 1rem;
+  }
+
+  .errorActions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .errorContainer {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .errorIcon {
+    font-size: 2.5rem;
+  }
+
+  .errorTitle {
+    font-size: 1.25rem;
+  }
+
+  .errorMessage {
+    font-size: 0.875rem;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .errorText {
+    font-size: 0.6875rem;
+    padding: 0.75rem;
+  }
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+  .errorBoundary {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  }
+
+  .errorContainer {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+
+  .errorTitle {
+    color: #f7fafc;
+  }
+
+  .errorMessage {
+    color: #e2e8f0;
+  }
+
+  .secondaryButton {
+    background: #4a5568;
+    color: #e2e8f0;
+    border-color: #718096;
+  }
+
+  .secondaryButton:hover {
+    background: #718096;
+    border-color: #a0aec0;
+  }
+
+  .errorDetails {
+    border-color: #4a5568;
+  }
+
+  .detailsContent {
+    background: #1a202c;
+    border-color: #4a5568;
+  }
+
+  .errorInfo h3 {
+    color: #f7fafc;
+  }
+
+  .errorText {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
+  }
+}
+
+/* 高コントラストモード対応 */
+@media (prefers-contrast: high) {
+  .errorContainer {
+    border-width: 2px;
+    border-color: #000000;
+  }
+
+  .errorTitle {
+    color: #000000;
+  }
+
+  .primaryButton {
+    background: #000080;
+  }
+
+  .primaryButton:hover {
+    background: #000060;
+  }
+
+  .secondaryButton {
+    border-width: 2px;
+    border-color: #000000;
+    color: #000000;
+  }
+
+  .detailsToggle {
+    border-width: 2px;
+    border-color: #cc0000;
+    color: #cc0000;
+  }
+
+  .errorText {
+    border-width: 2px;
+    border-color: #000000;
+  }
+}
+
+/* アニメーション */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.errorContainer {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* アクセシビリティ */
+@media (prefers-reduced-motion: reduce) {
+  .errorContainer {
+    animation: none;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    transition: none;
+    transform: none;
+  }
+
+  .primaryButton:hover,
+  .secondaryButton:hover {
+    transform: none;
+  }
+}
+
+/* プリント対応 */
+@media print {
+  .errorBoundary {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  .errorContainer {
+    background: #ffffff;
+    border: 2px solid #000000;
+    box-shadow: none;
+  }
+
+  .errorTitle {
+    color: #000000;
+  }
+
+  .errorMessage {
+    color: #000000;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    border: 2px solid #000000;
+    background: #ffffff;
+    color: #000000;
+  }
+
+  .errorDetails {
+    border-color: #000000;
+  }
+
+  .detailsContent {
+    background: #ffffff;
+    border-color: #000000;
+  }
+
+  .errorText {
+    background: #ffffff;
+    border-color: #000000;
+    color: #000000;
+  }
+}
