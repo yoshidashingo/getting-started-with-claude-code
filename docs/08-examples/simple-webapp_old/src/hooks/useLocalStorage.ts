@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { isStorageAvailable } from '@/utils/storage';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { isStorageAvailable } from '../utils/storage';
 
 /**
  * useLocalStorageフックの戻り値の型
@@ -30,6 +30,7 @@ export const useLocalStorage = <T>(
   const [value, setStoredValue] = useState<T>(initialValue);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const initialValueRef = useRef<T>(initialValue);
 
   // LocalStorageから初期値を読み込む
   useEffect(() => {
@@ -50,19 +51,19 @@ export const useLocalStorage = <T>(
           const parsedValue = JSON.parse(item);
           setStoredValue(parsedValue);
         } else {
-          setStoredValue(initialValue);
+          setStoredValue(initialValueRef.current);
         }
       } catch (err) {
         console.error(`Error reading localStorage key "${key}":`, err);
         setError('データの読み込みに失敗しました');
-        setStoredValue(initialValue);
+        setStoredValue(initialValueRef.current);
       } finally {
         setIsLoading(false);
       }
     };
 
     loadInitialValue();
-  }, [key, initialValue]);
+  }, [key]); // initialValue を依存関係から削除して無限ループを防ぐ
 
   // 値を設定する関数
   const setValue = useCallback(
@@ -70,24 +71,33 @@ export const useLocalStorage = <T>(
       try {
         setError(null);
 
-        // 関数の場合は現在の値を渡して実行
-        const valueToStore = newValue instanceof Function ? newValue(value) : newValue;
-        
-        // 状態を更新
-        setStoredValue(valueToStore);
-
-        // LocalStorageが利用可能な場合のみ保存
-        if (isStorageAvailable()) {
-          window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        // 状態を更新（関数の場合は setStoredValue に直接渡す）
+        if (newValue instanceof Function) {
+          setStoredValue(prevValue => {
+            const valueToStore = newValue(prevValue);
+            // LocalStorageが利用可能な場合のみ保存
+            if (isStorageAvailable()) {
+              window.localStorage.setItem(key, JSON.stringify(valueToStore));
+            } else {
+              console.warn('LocalStorage is not available, value not persisted');
+            }
+            return valueToStore;
+          });
         } else {
-          console.warn('LocalStorage is not available, value not persisted');
+          setStoredValue(newValue);
+          // LocalStorageが利用可能な場合のみ保存
+          if (isStorageAvailable()) {
+            window.localStorage.setItem(key, JSON.stringify(newValue));
+          } else {
+            console.warn('LocalStorage is not available, value not persisted');
+          }
         }
       } catch (err) {
         console.error(`Error setting localStorage key "${key}":`, err);
         setError('データの保存に失敗しました');
       }
     },
-    [key, value]
+    [key] // value を依存関係から削除して無限ループを防ぐ
   );
 
   // 値を削除する関数
@@ -96,7 +106,7 @@ export const useLocalStorage = <T>(
       setError(null);
       
       // 状態を初期値にリセット
-      setStoredValue(initialValue);
+      setStoredValue(initialValueRef.current);
 
       // LocalStorageが利用可能な場合のみ削除
       if (isStorageAvailable()) {
@@ -106,7 +116,7 @@ export const useLocalStorage = <T>(
       console.error(`Error removing localStorage key "${key}":`, err);
       setError('データの削除に失敗しました');
     }
-  }, [key, initialValue]);
+  }, [key]); // initialValue を依存関係から削除して無限ループを防ぐ
 
   return {
     value,

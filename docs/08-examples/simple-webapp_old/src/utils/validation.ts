@@ -1,4 +1,4 @@
-import { CreateUserInput, UpdateUserInput, ValidationError } from '@/types/user';
+import { CreateUserInput, UpdateUserInput, ValidationError } from '../types/user';
 import { isValidEmail, isValidName } from './storage';
 
 /**

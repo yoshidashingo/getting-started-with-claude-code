@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo, useEffect } from 'react';
-import { User, CreateUserInput, UpdateUserInput, UserStats } from '@/types/user';
+import { User, CreateUserInput, UpdateUserInput, UserStats } from '../types/user';
 import { useLocalStorage } from './useLocalStorage';
 import {
   generateId,
@@ -7,13 +7,13 @@ import {
   sortUsers,
   loadUsersFromStorage,
   saveUsersToStorage,
-} from '@/utils/storage';
+} from '../utils/storage';
 import {
   validateCreateUserInput,
   validateUpdateUserInput,
   validateSearchQuery,
   hasValidationErrors,
-} from '@/utils/validation';
+} from '../utils/validation';
 
 /**
  * useUsersフックの戻り値の型
@@ -88,7 +88,7 @@ export const useUsers = (): UseUsersReturn => {
     };
 
     loadInitialData();
-  }, [setUsers]);
+  }, []); // 依存関係から setUsers を削除
 
   // フィルタリングされたユーザーリスト
   const filteredUsers = useMemo(() => {

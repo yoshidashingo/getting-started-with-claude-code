@@ -1,5 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import { useUsers } from '../../hooks/useUsers';
+import { ErrorRecovery, withErrorRecovery } from '../ErrorBoundary';
 import { UserForm } from '../UserForm/UserForm';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { UserStats } from '../UserStats/UserStats';
@@ -113,10 +114,33 @@ export const UserManagementApp: React.FC<UserManagementAppProps> = ({
     }
   }, [clearAllUsers, clearSearch]);
 
-  // エラーバウンダリ用のエラーハンドラー
-  const handleError = useCallback((error: Error, errorInfo: React.ErrorInfo) => {
-    console.error('UserManagementApp Error:', error, errorInfo);
-  }, []);
+  // エラー回復設定
+  const formRecoveryConfig = {
+    strategy: 'retry' as const,
+    maxRetries: 2,
+    retryDelay: 1000,
+  };
+
+  const statsRecoveryConfig = {
+    strategy: 'fallback' as const,
+    fallbackComponent: (
+      <div style={{ padding: '20px', textAlign: 'center', color: '#6b7280' }}>
+        統計情報を読み込めませんでした
+      </div>
+    ),
+  };
+
+  const searchRecoveryConfig = {
+    strategy: 'retry' as const,
+    maxRetries: 1,
+    retryDelay: 500,
+  };
+
+  const listRecoveryConfig = {
+    strategy: 'retry' as const,
+    maxRetries: 3,
+    retryDelay: 2000,
+  };
 
   return (
     <div className={styles.app}>
@@ -157,14 +181,19 @@ export const UserManagementApp: React.FC<UserManagementAppProps> = ({
             <h2 id="form-heading" className={styles.sectionTitle}>
               新しいユーザーを追加
             </h2>
-            <UserForm
-              onAddUser={handleAddUser}
-              disabled={isLoading}
-              placeholder={{
-                name: 'ユーザー名を入力',
-                email: 'メールアドレスを入力',
-              }}
-            />
+            <ErrorRecovery
+              recoveryConfig={formRecoveryConfig}
+              componentName="UserForm"
+            >
+              <UserForm
+                onAddUser={handleAddUser}
+                disabled={isLoading}
+                placeholder={{
+                  name: 'ユーザー名を入力',
+                  email: 'メールアドレスを入力',
+                }}
+              />
+            </ErrorRecovery>
           </section>
 
           {/* 統計情報 */}
@@ -175,11 +204,16 @@ export const UserManagementApp: React.FC<UserManagementAppProps> = ({
             <h2 id="stats-heading" className={styles.sectionTitle}>
               統計情報
             </h2>
-            <UserStats
-              stats={stats}
-              searchQuery={searchQuery}
-              disabled={isLoading}
-            />
+            <ErrorRecovery
+              recoveryConfig={statsRecoveryConfig}
+              componentName="UserStats"
+            >
+              <UserStats
+                stats={stats}
+                searchQuery={searchQuery}
+                disabled={isLoading}
+              />
+            </ErrorRecovery>
           </section>
 
           {/* 検索バー */}
@@ -190,14 +224,19 @@ export const UserManagementApp: React.FC<UserManagementAppProps> = ({
             <h2 id="search-heading" className={styles.sectionTitle}>
               ユーザー検索
             </h2>
-            <SearchBar
-              onSearch={handleSearch}
-              onClear={handleClearSearch}
-              value={searchQuery}
-              disabled={isLoading}
-              resultStats={stats}
-              placeholder="ユーザー名またはメールアドレスで検索..."
-            />
+            <ErrorRecovery
+              recoveryConfig={searchRecoveryConfig}
+              componentName="SearchBar"
+            >
+              <SearchBar
+                onSearch={handleSearch}
+                onClear={handleClearSearch}
+                value={searchQuery}
+                disabled={isLoading}
+                resultStats={stats}
+                placeholder="ユーザー名またはメールアドレスで検索..."
+              />
+            </ErrorRecovery>
           </section>
 
           {/* ユーザーリスト */}
@@ -208,19 +247,24 @@ export const UserManagementApp: React.FC<UserManagementAppProps> = ({
             <h2 id="list-heading" className={styles.sectionTitle}>
               {searchQuery ? '検索結果' : 'ユーザー一覧'}
             </h2>
-            <UserList
-              users={filteredUsers}
-              searchQuery={searchQuery}
-              onEditUser={handleEditUser}
-              onDeleteUser={handleDeleteUser}
-              isLoading={isLoading}
-              error={error}
-              disabled={isLoading}
-              emptyStateConfig={{
-                showAddButton: !searchQuery,
-                onAddClick: scrollToForm,
-              }}
-            />
+            <ErrorRecovery
+              recoveryConfig={listRecoveryConfig}
+              componentName="UserList"
+            >
+              <UserList
+                users={filteredUsers}
+                searchQuery={searchQuery}
+                onEditUser={handleEditUser}
+                onDeleteUser={handleDeleteUser}
+                isLoading={isLoading}
+                error={error}
+                disabled={isLoading}
+                emptyStateConfig={{
+                  showAddButton: !searchQuery,
+                  onAddClick: scrollToForm,
+                }}
+              />
+            </ErrorRecovery>
           </section>
         </div>
       </main>

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { UserStats as UserStatsType } from '@/types/user';
+import { UserStats as UserStatsType } from '../../types/user';
 import styles from './UserStats.module.css';
 
 /**
