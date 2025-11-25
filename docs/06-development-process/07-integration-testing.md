@@ -436,7 +436,7 @@ describe('Tasks API Integration Tests', () => {
 
 1. **[E2Eテスト](08-e2e-testing.md)** - エンドツーエンドテスト
 2. **[テスト基礎](../05-testing-basics.md)** - Playwright MCPでの自動テスト
-3. **[ビルド自動化](07-build-automation.md)** - CI/CDパイプライン
+3. **[ビルド自動化](09-build-automation.md)** - CI/CDパイプライン
 
 ---
 

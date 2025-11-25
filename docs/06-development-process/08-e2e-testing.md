@@ -802,7 +802,7 @@ test.describe('パフォーマンステスト', () => {
 E2Eテストを理解したら：
 
 1. **[テスト基礎](../05-testing-basics.md)** - Playwright MCPの詳細設定
-2. **[ビルド自動化](07-build-automation.md)** - CI/CDでのテスト実行
+2. **[ビルド自動化](09-build-automation.md)** - CI/CDでのテスト実行
 3. **[チーム開発](../07-team-development/README.md)** - チームでのテスト運用
 
 ---
